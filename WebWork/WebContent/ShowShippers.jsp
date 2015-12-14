@@ -39,6 +39,7 @@
 		<h3><strong><%=s.getName()%></strong>
 		<span class= "pull-right label label-primary"><%=s.getPhone() %></span>
 		</h3>
+		<a href= "EditShipper.jsp?id=<%=s.getId()%>">Edit</a>
 		</div>
 		<%
 			} 

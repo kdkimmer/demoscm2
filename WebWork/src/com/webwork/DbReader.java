@@ -41,7 +41,7 @@ public class DbReader {
 		}
 		return products;
 	}
-
+	//introduction of an anonymous class
 	public static List<Shipper> getAllShippers(){
 		return getAllTableObjects("SELECT * FROM Shippers ORDER BY CompanyName", new ObjectReader<Shipper>(){
 
@@ -56,7 +56,25 @@ public class DbReader {
 			}
 		});
 	}
+	public static Shipper getShipper(int shipperId){
+		List<Shipper> shippers = getAllTableObjects("SELECT * FROM Shippers WHERE ShipperId=" + shipperId, new ObjectReader<Shipper>(){
+		
+		@Override
+		public Shipper readFromResultSet(ResultSet rs) throws Exception {
+			Shipper s = new Shipper();
+			s.setId(rs.getInt("ShipperId"));
+			s.setName(rs.getString("CompanyName"));
+			s.setPhone(rs.getString("Phone"));
+			
+			return s;
+		}
+	});
 	
+	Shipper result = null;
+	if (shippers.size() > 0)
+		result = shippers.get(0);
+	return result;
+}
 	
 //This is the concept of generics.if I pass in an object it will read 
 //it does not matter if it is shipper or product...interface agreement
